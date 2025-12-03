@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
-use App\Models\Habit;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class HabitController extends Controller
+class UserProfileController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +34,7 @@ class HabitController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Habit $habit)
+    public function show(string $id)
     {
         //
     }
@@ -42,7 +42,7 @@ class HabitController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Habit $habit)
+    public function edit(string $id)
     {
         //
     }
@@ -50,7 +50,7 @@ class HabitController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Habit $habit)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -58,7 +58,7 @@ class HabitController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Habit $habit)
+    public function destroy(string $id)
     {
         //
     }

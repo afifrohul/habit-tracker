@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
-use App\Models\Log;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class LogController extends Controller
+class HabitController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +34,7 @@ class LogController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Log $log)
+    public function show(string $id)
     {
         //
     }
@@ -42,7 +42,7 @@ class LogController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Log $log)
+    public function edit(string $id)
     {
         //
     }
@@ -50,7 +50,7 @@ class LogController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Log $log)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -58,7 +58,7 @@ class LogController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Log $log)
+    public function destroy(string $id)
     {
         //
     }

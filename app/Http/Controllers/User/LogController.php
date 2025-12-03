@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
-use App\Models\UserProfile;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class UserProfileController extends Controller
+class LogController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +34,7 @@ class UserProfileController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(UserProfile $userProfile)
+    public function show(string $id)
     {
         //
     }
@@ -42,7 +42,7 @@ class UserProfileController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(UserProfile $userProfile)
+    public function edit(string $id)
     {
         //
     }
@@ -50,7 +50,7 @@ class UserProfileController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, UserProfile $userProfile)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -58,7 +58,7 @@ class UserProfileController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(UserProfile $userProfile)
+    public function destroy(string $id)
     {
         //
     }

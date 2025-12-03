@@ -53,7 +53,7 @@ export function AppSidebar() {
             </SidebarHeader>
 
             <SidebarContent>
-                <NavMain items={mainNavItems} />
+                <NavMain header="Dashboard" items={mainNavItems} />
             </SidebarContent>
 
             <SidebarFooter>
