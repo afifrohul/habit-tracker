@@ -50,4 +50,24 @@ class User extends Authenticatable
             'two_factor_confirmed_at' => 'datetime',
         ];
     }
+
+    public function profile()
+    {
+        return $this->hasOne(UserProfile::class);
+    }
+
+    public function categories()
+    {
+        return $this->hasMany(Category::class);
+    }
+
+    public function habits()
+    {
+        return $this->hasMany(Habit::class);
+    }
+
+    public function logs()
+    {
+        return $this->hasMany(Log::class);
+    }
 }
