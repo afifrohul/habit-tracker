@@ -11,8 +11,8 @@ import { FaPlusCircle } from 'react-icons/fa';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Category',
-        href: '/categories',
+        title: 'Habit',
+        href: '/habits',
     },
 ];
 
@@ -23,16 +23,41 @@ type Category = {
     icon: string;
 };
 
-interface CategoryIndexProps {
-    categories: Category[];
+type Habit = {
+    id: number;
+    name: string;
+    color: string;
+    exp: number;
+    icon: string;
+    category: Category;
+};
+
+interface HabitIndexProps {
+    habits: Habit[];
 }
 
-export default function Index({ categories }: CategoryIndexProps) {
-
-    const columns: ColumnDef<Category>[] = [
+export default function Index({ habits }: HabitIndexProps) {
+    const columns: ColumnDef<Habit>[] = [
         {
             accessorKey: 'name',
             header: 'Category Name',
+            cell: (info) => info.getValue(),
+        },
+        {
+            accessorKey: 'color',
+            header: 'Color',
+            cell: ({ row }) => {
+                return (
+                    <div
+                        className={`h-4 w-10 rounded`}
+                        style={{ backgroundColor: row.original.color }}
+                    ></div>
+                );
+            },
+        },
+        {
+            accessorKey: 'exp',
+            header: 'Exp',
             cell: (info) => info.getValue(),
         },
         {
@@ -54,13 +79,36 @@ export default function Index({ categories }: CategoryIndexProps) {
             },
         },
         {
+            accessorKey: 'category',
+            header: 'Category',
+            cell: ({ row }) => {
+                const iconName = row.original.category.icon;
+                const IconComponent = (lucideIcons as Record<string, any>)[
+                    iconName
+                ];
+
+                if (!IconComponent) {
+                    return (
+                        <div className="text-sm text-red-500">Invalid icon</div>
+                    );
+                }
+
+                return (
+                    <div className="flex gap-2">
+                        <IconComponent className="h-4 w-4" />
+                        {row.original.category.name}
+                    </div>
+                );
+            },
+        },
+        {
             id: 'actions',
             header: 'Actions',
             cell: ({ row }) => (
                 <div className="flex justify-start gap-2">
-                    <EditButton url={`/categories/${row.original.id}/edit`} />
+                    <EditButton url={`/habits/${row.original.id}/edit`} />
                     <DeleteButton
-                        url={`/categories/${row.original.id}`}
+                        url={`/habits/${row.original.id}`}
                         confirmMessage="Are you sure to delete this category?"
                     />
                 </div>
@@ -74,19 +122,17 @@ export default function Index({ categories }: CategoryIndexProps) {
             <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
                 <div className="rounded-xl border p-4">
                     <div className="mx-auto flex w-full flex-col gap-4">
-                        <DataTable<Category>
+                        <DataTable<Habit>
                             showIndexColumn
                             columns={columns}
-                            data={categories}
+                            data={habits}
                             createButton={
                                 <Button
                                     variant="outline"
-                                    onClick={() =>
-                                        router.get('/categories/create')
-                                    }
+                                    onClick={() => router.get('/habits/create')}
                                 >
                                     <FaPlusCircle className="mr-2" /> Create New
-                                    Category
+                                    Habit
                                 </Button>
                             }
                         />

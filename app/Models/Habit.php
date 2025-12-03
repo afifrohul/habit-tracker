@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Habit extends Model
 {
-    protected $fillable = ['user_id', 'category_id', 'name', 'icon', 'desc','exp', 'icon'];
+    protected $fillable = ['user_id', 'category_id', 'name', 'color', 'icon', 'desc','exp', 'icon'];
 
     public function user()
     {

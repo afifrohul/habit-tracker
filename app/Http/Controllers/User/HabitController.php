@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Http\Controllers\Controller;
+use App\Models\Habit;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
+use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
 
 class HabitController extends Controller
 {
@@ -12,7 +15,13 @@ class HabitController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            $habits = Habit::with(['category'])->where('user_id', auth()->user()->id)->get();
+            return Inertia::render('user/habit/index', compact('habits'));
+        } catch (\Exception $e) {
+            Log::error('Error loading habits: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Failed to load habits.');
+        }
     }
 
     /**
