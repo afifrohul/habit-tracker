@@ -37,7 +37,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             CategorySeeder::class,
-            HabitSeeder::class
+            HabitSeeder::class,
+            HabitLogSeeder::class
         ]);
     }
 }

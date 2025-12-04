@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Log extends Model
+class HabitLog extends Model
 {
     protected $fillable = ['user_id', 'habit_id', 'exp_gain', 'date'];
 

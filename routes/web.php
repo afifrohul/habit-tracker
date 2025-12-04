@@ -6,6 +6,7 @@ use Laravel\Fortify\Features;
 use App\Http\Controllers\RedirectController;
 use App\Http\Controllers\User\CategoryController;
 use App\Http\Controllers\User\HabitController;
+use App\Http\Controllers\User\HabitLogController;
 
 Route::get('/', function () {
     return Inertia::render('welcome', [
@@ -38,6 +39,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::put('/habits/{id}', [HabitController::class, 'update'])->name('habits.update');
         Route::delete('/habits/{id}', [HabitController::class, 'destroy'])->name('habits.destroy');
         Route::get('/habits', [HabitController::class, 'index'])->name('habits.index');
+
+        Route::get('/logs', [HabitLogController::class, 'index'])->name('logs.index');
+        Route::post('/logs', [HabitLogController::class, 'store'])->name('logs.store');
+        Route::delete('/logs/{id}', [HabitLogController::class, 'destroy'])->name('logs.destroy');
     });
 
 });

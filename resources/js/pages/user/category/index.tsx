@@ -28,7 +28,6 @@ interface CategoryIndexProps {
 }
 
 export default function Index({ categories }: CategoryIndexProps) {
-
     const columns: ColumnDef<Category>[] = [
         {
             accessorKey: 'name',
@@ -70,7 +69,7 @@ export default function Index({ categories }: CategoryIndexProps) {
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Dashboard" />
+            <Head title="Category Habit" />
             <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
                 <div className="rounded-xl border p-4">
                     <div className="mx-auto flex w-full flex-col gap-4">

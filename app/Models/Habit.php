@@ -17,4 +17,9 @@ class Habit extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    public function logs()
+    {
+        return $this->hasMany(HabitLog::class);
+    }
 }

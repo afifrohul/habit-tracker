@@ -109,7 +109,7 @@ export default function Index({ habits }: HabitIndexProps) {
                     <EditButton url={`/habits/${row.original.id}/edit`} />
                     <DeleteButton
                         url={`/habits/${row.original.id}`}
-                        confirmMessage="Are you sure to delete this category?"
+                        confirmMessage="Are you sure to delete this habit?"
                     />
                 </div>
             ),
@@ -118,7 +118,7 @@ export default function Index({ habits }: HabitIndexProps) {
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Dashboard" />
+            <Head title="Habit" />
             <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
                 <div className="rounded-xl border p-4">
                     <div className="mx-auto flex w-full flex-col gap-4">

@@ -68,6 +68,6 @@ class User extends Authenticatable
 
     public function logs()
     {
-        return $this->hasMany(Log::class);
+        return $this->hasMany(HabitLog::class);
     }
 }
