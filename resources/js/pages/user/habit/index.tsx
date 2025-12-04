@@ -40,7 +40,7 @@ export default function Index({ habits }: HabitIndexProps) {
     const columns: ColumnDef<Habit>[] = [
         {
             accessorKey: 'name',
-            header: 'Category Name',
+            header: 'Habit Name',
             cell: (info) => info.getValue(),
         },
         {

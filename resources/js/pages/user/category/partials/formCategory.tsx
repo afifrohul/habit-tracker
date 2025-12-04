@@ -6,7 +6,6 @@ import {
     FieldLabel,
 } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
-import { Separator } from '@/components/ui/separator';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { router } from '@inertiajs/react';
 import * as Icons from 'lucide-react';
@@ -95,14 +94,16 @@ export function CategoryForm({
                         return (
                             <Field data-invalid={fieldState.invalid}>
                                 <FieldLabel htmlFor="icon">Icon</FieldLabel>
-                                <a
-                                    href="https://lucide.dev/icons/"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="text-xs text-indigo-500 underline"
-                                >
-                                    Click this to get icons list name
-                                </a>
+                                <div>
+                                    <a
+                                        href="https://lucide.dev/icons/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-xs text-indigo-500 underline"
+                                    >
+                                        Click this to get icons list name
+                                    </a>
+                                </div>
                                 <Input
                                     {...field}
                                     id="icon"
@@ -111,10 +112,10 @@ export function CategoryForm({
                                     required
                                 />
                                 <div className="mt-2 flex h-10 flex-col gap-2">
-                                    <p className="text-xs ">Preview icon</p>
+                                    <p className="text-xs">Preview icon</p>
                                     <div>
                                         {IconComponent ? (
-                                            <div className='flex items-center gap-2'>
+                                            <div className="flex items-center gap-2">
                                                 <IconComponent className="h-6 w-6" />
                                                 <span className="text-xs text-green-600">
                                                     Icon found!
