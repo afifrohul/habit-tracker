@@ -55,7 +55,7 @@ export default function Index({ logs }: LogIndexProps) {
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Log" />
+            <Head title="Tracker" />
             <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
                 <div className="rounded-xl border p-4 text-xs">
                     <FullCalendar
