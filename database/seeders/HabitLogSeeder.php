@@ -12,6 +12,39 @@ class HabitLogSeeder extends Seeder
      */
     public function run(): void
     {
+
+        // $startDate = Carbon::create(2025, 11, 1);
+        // $endDate   = Carbon::create(2025, 12, 11);
+
+        // $dates = [];
+        // $date = $startDate->copy();
+
+        // // Loop tanggal
+        // while ($date->lte($endDate)) {
+
+        //     // berapa habit yang dilakukan hari itu (1–6)
+        //     $habitCountToday = rand(1, 6);
+
+        //     // ambil habit_id random tanpa duplikasi di hari yang sama
+        //     $habitIds = collect(range(1, 6))
+        //         ->shuffle()
+        //         ->take($habitCountToday)
+        //         ->values();
+
+        //     foreach ($habitIds as $habitId) {
+        //         HabitLog::create([
+        //             'user_id'    => 2,
+        //             'habit_id'   => $habitId,
+        //             'exp_gain'   => 10,
+        //             'date'       => $date->format('Y-m-d'),
+        //             'created_at' => now(),
+        //             'updated_at' => now(),
+        //         ]);
+        //     }
+
+        //     $date->addDay();
+        // }
+
         $logs = [
             [
                 'user_id' => 2,

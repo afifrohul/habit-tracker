@@ -7,6 +7,7 @@ use App\Http\Controllers\RedirectController;
 use App\Http\Controllers\User\CategoryController;
 use App\Http\Controllers\User\HabitController;
 use App\Http\Controllers\User\HabitLogController;
+use App\Http\Controllers\User\TrackerController;
 
 Route::get('/', function () {
     return Inertia::render('welcome', [
@@ -43,6 +44,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/logs', [HabitLogController::class, 'index'])->name('logs.index');
         Route::post('/logs', [HabitLogController::class, 'store'])->name('logs.store');
         Route::delete('/logs/{id}', [HabitLogController::class, 'destroy'])->name('logs.destroy');
+
+        Route::get('/tracker', [TrackerController::class, 'index'])->name('tracker.index');
     });
 
 });

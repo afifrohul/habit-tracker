@@ -12,7 +12,7 @@ import {
 import { dashboard } from '@/routes';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { Bike, LayoutGrid, ScrollText, SquareLibrary } from 'lucide-react';
+import { Bike, FileChartColumn, LayoutGrid, ScrollText, SquareLibrary } from 'lucide-react';
 import AppLogo from './app-logo';
 
 const Dashboards: NavItem[] = [
@@ -20,6 +20,11 @@ const Dashboards: NavItem[] = [
         title: 'Dashboard',
         href: dashboard(),
         icon: LayoutGrid,
+    },
+    {
+        title: 'Tracker',
+        href: '/tracker',
+        icon: FileChartColumn,
     },
 ];
 
@@ -57,7 +62,7 @@ export function AppSidebar() {
             </SidebarHeader>
 
             <SidebarContent>
-                <NavMain header="Dashboard" items={Dashboards} />
+                <NavMain header="Visualizer" items={Dashboards} />
                 <NavMain header="Master Data" items={mainNavItems} />
             </SidebarContent>
 
