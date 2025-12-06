@@ -1,9 +1,11 @@
+import { HabitFilter } from '@/components/habit-filter';
 import AppLayout from '@/layouts/app-layout';
 import { lucideIcons } from '@/lib/lucide-icons';
 import { BreadcrumbItem } from '@/types';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import FullCalendar from '@fullcalendar/react';
-import { Head } from '@inertiajs/react';
+import { Head, router } from '@inertiajs/react';
+import { useState } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -28,13 +30,33 @@ type Log = {
 
 interface LogIndexProps {
     logs: Log[];
+    habits: Habit[];
+    validHabitIds: [];
 }
 
-export default function Index({ logs }: LogIndexProps) {
+export default function Index({ logs, habits, validHabitIds }: LogIndexProps) {
     const events = logs.map((log) => ({
         ...log,
         id: log.id.toString(),
     }));
+
+    const [selectedHabits, setSelectedHabits] =
+        useState<number[]>(validHabitIds);
+
+    const updateFilter = (values: number[]) => {
+        setSelectedHabits(values);
+
+        router.get(
+            '/tracker',
+            {
+                habits: values,
+            },
+            {
+                preserveScroll: true,
+                preserveState: true,
+            },
+        );
+    };
 
     const renderEventContent = (eventInfo: any) => {
         const iconName = eventInfo.event.extendedProps.icon;
@@ -57,6 +79,13 @@ export default function Index({ logs }: LogIndexProps) {
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Tracker" />
             <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
+                <div className="flex justify-start">
+                    <HabitFilter
+                        habits={habits}
+                        selected={selectedHabits}
+                        onChange={updateFilter}
+                    />
+                </div>
                 <div className="rounded-xl border p-4 text-xs">
                     <FullCalendar
                         plugins={[dayGridPlugin]}
