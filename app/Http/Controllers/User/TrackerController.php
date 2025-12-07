@@ -51,7 +51,7 @@ class TrackerController extends Controller
             $start = now()->subDays(6)->startOfDay();
             $end = now()->endOfDay();
 
-            $weeklyLog = HabitLog::where('user_id', auth()->id())
+            $weeklyLog = HabitLog::where('user_id', $user->id)
                 ->whereBetween('date', [$start, $end])
                 ->get()
                 ->groupBy('habit_id');
@@ -64,6 +64,11 @@ class TrackerController extends Controller
                 ];
             });
 
+            $chartData = HabitLog::where('user_id', $user->id)
+            ->select(\DB::raw('date, count(*) as habit'))
+            ->groupBy('date')
+            ->orderBy('date')
+            ->get();
 
             return Inertia::render('user/tracker/index', compact(
                 'logs',
@@ -71,7 +76,8 @@ class TrackerController extends Controller
                 'validHabitIds',
                 'categories',
                 'weeklyLog',
-                'dates'
+                'dates',
+                'chartData'
             ));
 
         } catch (\Exception $e) {
