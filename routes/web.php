@@ -46,6 +46,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::delete('/logs/{id}', [HabitLogController::class, 'destroy'])->name('logs.destroy');
 
         Route::get('/tracker', [TrackerController::class, 'index'])->name('tracker.index');
+        Route::get('/tracker/habit-track/{id}', [TrackerController::class, 'show'])->name('tracker.show');
     });
 
 });

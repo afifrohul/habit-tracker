@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Models\HabitLog;
 use App\Models\Habit;
+use Carbon\Carbon;
 
 class TrackerController extends Controller
 {
@@ -84,6 +85,45 @@ class TrackerController extends Controller
             Log::error('Error loading logs: ' . $e->getMessage());
             return back()->with('error', 'Failed to load logs.');
         }
-}
+    }
 
+    public function show($id)
+    {
+        try {
+
+            $habit = Habit::with(['category', 'logs'])->findOrFail($id);
+
+            $data = HabitLog::where('user_id', auth()->user()->id)->where('habit_id', $id)->get();
+
+            $chartData = collect($data)
+                ->groupBy(function ($item) {
+                    return Carbon::parse($item['date'])->format('Y-m');
+                })
+                ->map(function ($items, $ym) {
+                    $date = Carbon::parse($ym . '-01');
+
+                    return [
+                        'year'  => $date->year,
+                        'month' => $date->format('F'),
+                        'habit' => $items->count(),
+                    ];
+                })
+                ->values();
+
+            $uniqueYears = collect($chartData)
+            ->pluck('year')
+            ->unique()
+            ->values();
+
+            return Inertia::render('user/tracker/show', compact(
+                'habit',
+                'chartData',
+                'uniqueYears'
+            ));
+
+        } catch (\Exception $e) {
+            Log::error('Error loading habit tracker: ' . $e->getMessage());
+            return back()->with('error', 'Failed to load habit tracker.');
+        }   
+    }
 }

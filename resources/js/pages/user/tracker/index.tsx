@@ -6,7 +6,7 @@ import { lucideIcons } from '@/lib/lucide-icons';
 import { BreadcrumbItem } from '@/types';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import FullCalendar from '@fullcalendar/react';
-import { Head, router } from '@inertiajs/react';
+import { Head, Link, router } from '@inertiajs/react';
 import { Square, SquareCheck } from 'lucide-react';
 import { useState } from 'react';
 
@@ -116,7 +116,7 @@ export default function Index({
                                 key={index}
                                 className="w-full gap-3 rounded border p-4"
                             >
-                                <CardHeader className='p-0'>
+                                <CardHeader className="p-0">
                                     <div className="flex items-center gap-2">
                                         <IconCategoryComponent className="h-3.5 w-3.5" />
                                         <p className="text-sm">{item.name}</p>
@@ -136,20 +136,29 @@ export default function Index({
                                             return (
                                                 <div
                                                     key={index}
-                                                    className="flex w-fit items-center gap-2 rounded border px-1 py-0.5"
+                                                    className="flex justify-between rounded border px-1 py-0.5"
                                                 >
-                                                    <IconHabitComponent
-                                                        className="h-3 w-3"
-                                                        style={{
-                                                            color: h.color,
-                                                        }}
-                                                    />
-                                                    <p
-                                                        className="text-xs"
-                                                        key={index}
+                                                    <div className="flex items-center gap-2">
+                                                        <IconHabitComponent
+                                                            className="h-3 w-3"
+                                                            style={{
+                                                                color: h.color,
+                                                            }}
+                                                        />
+                                                        <p
+                                                            className="text-xs"
+                                                            key={index}
+                                                        >
+                                                            {h.name}
+                                                        </p>
+                                                    </div>
+                                                    <Link
+                                                        href={`/tracker/habit-track/${h.id}`}
                                                     >
-                                                        {h.name}
-                                                    </p>
+                                                        <div className="text-xs bg-muted px-1 py-0.5 rounded underline ">
+                                                            Track
+                                                        </div>
+                                                    </Link>
                                                 </div>
                                             );
                                         })}
@@ -159,7 +168,7 @@ export default function Index({
                         );
                     })}
                 </div>
-                <Card className='p-1.5'>
+                <Card className="p-1.5">
                     <div className="overflow-x-auto rounded">
                         <table className="min-w-full text-xs">
                             <thead>
