@@ -110,11 +110,11 @@ export default function Index({ logs, selectedDate, habits }: LogIndexProps) {
 
                 return (
                     <div
-                        className="flex w-fit gap-2 rounded border px-1.5 py-1 text-white"
+                        className="flex w-fit gap-2 rounded border px-1.5 py-1 text-white items-center"
                         style={{ backgroundColor: row.original.habit.color }}
                     >
-                        <IconComponent className="h-4 w-4" />
-                        {row.original.habit.name}
+                        <IconComponent className="h-3 w-3" />
+                        <p>{row.original.habit.name}</p>
                     </div>
                 );
             },
@@ -157,9 +157,9 @@ export default function Index({ logs, selectedDate, habits }: LogIndexProps) {
 
     const [open, setOpen] = useState(false);
     const [date, setDate] = useState<Date | undefined>(
-      selectedDate ? new Date(selectedDate) : undefined,
+        selectedDate ? new Date(selectedDate) : undefined,
     );
-    
+
     const [openForm, setOpenForm] = useState(false);
 
     const [form, setForm] = useState({
@@ -171,20 +171,25 @@ export default function Index({ logs, selectedDate, habits }: LogIndexProps) {
         setForm((prev) => ({ ...prev, [key]: value }));
     };
 
-    const resetForm = () => setForm({
-      habit_id: '',
-      date: selectedDate
-    });
+    const resetForm = () =>
+        setForm({
+            habit_id: '',
+            date: selectedDate,
+        });
 
     const handleSubmit = (e: any) => {
         e.preventDefault();
-        router.post('/logs', {...form, habit_id: Number(form.habit_id)}, {
-          preserveScroll: true,
-          onSuccess: () => {
-            setOpenForm(false)
-            resetForm()
-          }
-        });
+        router.post(
+            '/logs',
+            { ...form, habit_id: Number(form.habit_id) },
+            {
+                preserveScroll: true,
+                onSuccess: () => {
+                    setOpenForm(false);
+                    resetForm();
+                },
+            },
+        );
     };
 
     return (
@@ -244,10 +249,13 @@ export default function Index({ logs, selectedDate, habits }: LogIndexProps) {
                             columns={columns}
                             data={logs}
                             createButton={
-                                <Dialog open={openForm} onOpenChange={(isOpen) => {
-                                  setOpenForm(isOpen);
-                                  if (isOpen) resetForm();
-                                }}>
+                                <Dialog
+                                    open={openForm}
+                                    onOpenChange={(isOpen) => {
+                                        setOpenForm(isOpen);
+                                        if (isOpen) resetForm();
+                                    }}
+                                >
                                     <DialogTrigger asChild>
                                         <Button variant="outline">
                                             <FaPlusCircle className="mr-2" />{' '}
@@ -255,52 +263,70 @@ export default function Index({ logs, selectedDate, habits }: LogIndexProps) {
                                         </Button>
                                     </DialogTrigger>
                                     <DialogContent className="sm:max-w-[425px]">
-                                      <form onSubmit={handleSubmit}>
-                                        <DialogHeader className='mb-4'>
-                                            <DialogTitle>
-                                                Create Habit Log on{' '}
-                                                {format(
-                                                    new Date(selectedDate),
-                                                    'dd MMMM yyyy',
-                                                )}
-                                            </DialogTitle>
-                                        </DialogHeader>
-                                        <div className="grid gap-4">
-                                            <div className="grid gap-3">
-                                                <Label htmlFor="name-1">
-                                                    Habit
-                                                </Label>
-                                                <Select
-                                                    value={form.habit_id}
-                                                    onValueChange={( value ) =>
-                                                        handleChange('habit_id', value,)
-                                                    }
-                                                >
-                                                    <SelectTrigger>
-                                                        <SelectValue placeholder="Select habit" />
-                                                    </SelectTrigger>
-                                                    <SelectContent>
-                                                        {habits?.map((item,index) => (
-                                                                <SelectItem key={index} value={String(item.id)}>
-                                                                    { item.name }
-                                                                </SelectItem>
-                                                            ),
-                                                        )}
-                                                    </SelectContent>
-                                                </Select>
+                                        <form onSubmit={handleSubmit}>
+                                            <DialogHeader className="mb-4">
+                                                <DialogTitle>
+                                                    Create Habit Log on{' '}
+                                                    {format(
+                                                        new Date(selectedDate),
+                                                        'dd MMMM yyyy',
+                                                    )}
+                                                </DialogTitle>
+                                            </DialogHeader>
+                                            <div className="grid gap-4">
+                                                <div className="grid gap-3">
+                                                    <Label htmlFor="name-1">
+                                                        Habit
+                                                    </Label>
+                                                    <Select
+                                                        value={form.habit_id}
+                                                        onValueChange={(
+                                                            value,
+                                                        ) =>
+                                                            handleChange(
+                                                                'habit_id',
+                                                                value,
+                                                            )
+                                                        }
+                                                    >
+                                                        <SelectTrigger>
+                                                            <SelectValue placeholder="Select habit" />
+                                                        </SelectTrigger>
+                                                        <SelectContent>
+                                                            {habits?.map(
+                                                                (
+                                                                    item,
+                                                                    index,
+                                                                ) => (
+                                                                    <SelectItem
+                                                                        key={
+                                                                            index
+                                                                        }
+                                                                        value={String(
+                                                                            item.id,
+                                                                        )}
+                                                                    >
+                                                                        {
+                                                                            item.name
+                                                                        }
+                                                                    </SelectItem>
+                                                                ),
+                                                            )}
+                                                        </SelectContent>
+                                                    </Select>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <DialogFooter className='mt-4'>
-                                            <DialogClose asChild>
-                                                <Button variant="outline">
-                                                    Cancel
+                                            <DialogFooter className="mt-4">
+                                                <DialogClose asChild>
+                                                    <Button variant="outline">
+                                                        Cancel
+                                                    </Button>
+                                                </DialogClose>
+                                                <Button type="submit">
+                                                    Save
                                                 </Button>
-                                            </DialogClose>
-                                            <Button type="submit">
-                                                Save
-                                            </Button>
-                                        </DialogFooter>
-                                      </form>
+                                            </DialogFooter>
+                                        </form>
                                     </DialogContent>
                                 </Dialog>
                             }

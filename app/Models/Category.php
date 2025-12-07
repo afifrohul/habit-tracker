@@ -12,4 +12,9 @@ class Category extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function habits()
+    {
+        return $this->hasMany(Habit::class);
+    }
 }

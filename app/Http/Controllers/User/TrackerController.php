@@ -46,7 +46,33 @@ class TrackerController extends Controller
                 ->select('id', 'name', 'icon', 'color')
                 ->get();
 
-            return Inertia::render('user/tracker/index', compact('logs', 'habits', 'validHabitIds'));
+            $categories = Category::with(['habits'])->where('user_id', $user->id)->get();
+
+            $start = now()->subDays(6)->startOfDay();
+            $end = now()->endOfDay();
+
+            $weeklyLog = HabitLog::where('user_id', auth()->id())
+                ->whereBetween('date', [$start, $end])
+                ->get()
+                ->groupBy('habit_id');
+            
+            $dates = collect(range(0, 6))->map(function ($i) {
+                $date = now()->subDays(6 - $i);
+                return [
+                    'key' => $date->format('Y-m-d'),
+                    'label' => $date->format('d M'),
+                ];
+            });
+
+
+            return Inertia::render('user/tracker/index', compact(
+                'logs',
+                'habits', 
+                'validHabitIds',
+                'categories',
+                'weeklyLog',
+                'dates'
+            ));
 
         } catch (\Exception $e) {
             Log::error('Error loading logs: ' . $e->getMessage());
