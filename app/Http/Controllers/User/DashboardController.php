@@ -5,11 +5,22 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use App\Models\Habit;
+use App\Models\Category;
+use App\Models\HabitLog;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        return Inertia::render('user/dashboard');
+        $categoryCount = Category::where('user_id', auth()->user()->id)->count();
+        $habitCount = Habit::where('user_id', auth()->user()->id)->count();
+        $habitLogCount = HabitLog::where('user_id', auth()->user()->id)->count();
+
+        return Inertia::render('user/dashboard', compact(
+            'categoryCount',
+            'habitCount',
+            'habitLogCount'
+        ));
     }
 }
