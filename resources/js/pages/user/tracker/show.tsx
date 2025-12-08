@@ -58,14 +58,16 @@ export default function Show({ habit, chartData, uniqueYears }: ShowProps) {
         return accumulator + current_value.exp_gain;
     }, 0);
 
+    console.log(habit)
+
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Dashboard" />
+            <Head title={habit.name} />
             <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
                 <div className="flex flex-col gap-4">
                     <Card>
                         <CardHeader>
-                            <CardTitle>Detail Habit Tracker</CardTitle>
+                            <CardTitle>Detail Habit Tracker - {habit.name}</CardTitle>
                         </CardHeader>
 
                         <CardContent>
@@ -130,6 +132,7 @@ export default function Show({ habit, chartData, uniqueYears }: ShowProps) {
                         uniqueYears={uniqueYears}
                         color={habit.color}
                     />
+                    
                 </div>
             </div>
         </AppLayout>
