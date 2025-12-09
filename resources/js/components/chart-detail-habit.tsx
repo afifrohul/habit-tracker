@@ -27,7 +27,7 @@ type Chart = {
 interface ChartProps {
     chartData: Chart[];
     uniqueYears: number[];
-    color: string
+    color: string;
 }
 
 export const description = 'A horizontal bar chart';
@@ -38,8 +38,12 @@ const chartConfig = {
     },
 } satisfies ChartConfig;
 
-export function ChartDetailHabit({ chartData, uniqueYears, color }: ChartProps) {
-    const [year, setYear] = useState('2025');
+export function ChartDetailHabit({
+    chartData,
+    uniqueYears,
+    color,
+}: ChartProps) {
+    const [year, setYear] = useState(String(new Date().getFullYear()));
 
     const filteredChartData = chartData.filter((data) => {
         return data.year === Number(year);

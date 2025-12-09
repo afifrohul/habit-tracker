@@ -110,6 +110,13 @@ class TrackerController extends Controller
                 })
                 ->values();
 
+            $gridData = collect($data)
+                ->map(fn($log) => [
+                    'id' => $log->id,
+                    'year' => Carbon::parse($log->date)->format('Y'),
+                    'date' => $log->date
+                ]);
+
             $uniqueYears = collect($chartData)
             ->pluck('year')
             ->unique()
@@ -118,7 +125,8 @@ class TrackerController extends Controller
             return Inertia::render('user/tracker/show', compact(
                 'habit',
                 'chartData',
-                'uniqueYears'
+                'uniqueYears',
+                'gridData'
             ));
 
         } catch (\Exception $e) {

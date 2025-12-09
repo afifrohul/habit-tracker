@@ -1,4 +1,5 @@
 import { ChartDetailHabit } from '@/components/chart-detail-habit';
+import HabitGrid from '@/components/habit-grid';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import AppLayout from '@/layouts/app-layout';
 import { lucideIcons } from '@/lib/lucide-icons';
@@ -40,10 +41,16 @@ type Habit = {
 interface ShowProps {
     habit: Habit;
     chartData: [];
+    gridData: [];
     uniqueYears: number[];
 }
 
-export default function Show({ habit, chartData, uniqueYears }: ShowProps) {
+export default function Show({
+    habit,
+    chartData,
+    gridData,
+    uniqueYears,
+}: ShowProps) {
     const iconCategoryName = habit.category.icon;
     const IconCategoryComponent = (lucideIcons as Record<string, any>)[
         iconCategoryName
@@ -58,8 +65,6 @@ export default function Show({ habit, chartData, uniqueYears }: ShowProps) {
         return accumulator + current_value.exp_gain;
     }, 0);
 
-    console.log(habit)
-
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title={habit.name} />
@@ -67,7 +72,9 @@ export default function Show({ habit, chartData, uniqueYears }: ShowProps) {
                 <div className="flex flex-col gap-4">
                     <Card>
                         <CardHeader>
-                            <CardTitle>Detail Habit Tracker - {habit.name}</CardTitle>
+                            <CardTitle>
+                                Detail Habit Tracker - {habit.name}
+                            </CardTitle>
                         </CardHeader>
 
                         <CardContent>
@@ -132,7 +139,9 @@ export default function Show({ habit, chartData, uniqueYears }: ShowProps) {
                         uniqueYears={uniqueYears}
                         color={habit.color}
                     />
-                    
+                    <div>
+                        <HabitGrid gridData={gridData} uniqueYears={uniqueYears} color={habit.color}></HabitGrid>
+                    </div>
                 </div>
             </div>
         </AppLayout>
