@@ -11,7 +11,7 @@ export default function DashboardCard({
 }: {
     header: string;
     icon?: LucideIcon | null;
-    data: string;
+    data: number;
     footer: string;
     className?: string;
 }) {

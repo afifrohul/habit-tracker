@@ -1,3 +1,4 @@
+import { ChartExp } from '@/components/chart-exp';
 import DashboardCard from '@/components/dashboard-card';
 import AppLayout from '@/layouts/app-layout';
 import { dashboard } from '@/routes';
@@ -12,7 +13,19 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-export default function Dashboard({ ...props }) {
+interface DashboardProps {
+    categoryCount: number;
+    habitCount: number;
+    habitLogCount: number;
+    chartData: [];
+}
+
+export default function Dashboard({
+    categoryCount,
+    habitCount,
+    habitLogCount,
+    chartData,
+}: DashboardProps) {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Dashboard" />
@@ -21,21 +34,24 @@ export default function Dashboard({ ...props }) {
                     <DashboardCard
                         header="Habit Category"
                         icon={SquareLibrary}
-                        data={props.categoryCount}
+                        data={categoryCount}
                         footer="Total Habit Category(s)"
                     />
                     <DashboardCard
                         header="Habit"
                         icon={Bike}
-                        data={props.habitCount}
+                        data={habitCount}
                         footer="Total Habit(s)"
                     />
                     <DashboardCard
                         header="Habit Log"
                         icon={ScrollText}
-                        data={props.habitLogCount}
+                        data={habitLogCount}
                         footer="Total Habit Log(s)"
                     />
+                </div>
+                <div>
+                    <ChartExp chartData={chartData}></ChartExp>
                 </div>
             </div>
         </AppLayout>

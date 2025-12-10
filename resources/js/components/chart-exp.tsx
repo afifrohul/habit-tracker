@@ -1,6 +1,6 @@
 'use client';
 
-import { Area, AreaChart, CartesianGrid, XAxis } from 'recharts';
+import { Bar, BarChart, CartesianGrid, XAxis } from 'recharts';
 
 import {
     Card,
@@ -12,8 +12,6 @@ import {
 import {
     ChartConfig,
     ChartContainer,
-    ChartLegend,
-    ChartLegendContent,
     ChartTooltip,
     ChartTooltipContent,
 } from '@/components/ui/chart';
@@ -26,28 +24,28 @@ import {
 } from '@/components/ui/select';
 import { useState } from 'react';
 
+export const description = 'An interactive bar chart';
+
 type Chart = {
     date: string;
-    habit: number;
+    exp: number;
 };
 
 interface ChartProps {
     chartData: Chart[];
 }
 
-export const description = 'An interactive area chart';
-
 const chartConfig = {
-    visitors: {
-        label: 'Visitors',
+    views: {
+        label: 'Exp Gain',
     },
-    habit: {
-        label: 'Habit',
+    exp: {
+        label: 'Exp Gain',
         color: 'var(--chart-1)',
     },
 } satisfies ChartConfig;
 
-export function ChartHabit({ chartData }: ChartProps) {
+export function ChartExp({ chartData }: ChartProps) {
     const [timeRange, setTimeRange] = useState('7d');
 
     const filteredData = chartData.filter((item) => {
@@ -70,12 +68,12 @@ export function ChartHabit({ chartData }: ChartProps) {
     });
 
     return (
-        <Card className="pt-0">
-            <CardHeader className="flex items-center gap-2 space-y-0 border-b py-5 sm:flex-row">
-                <div className="grid flex-1 gap-1">
-                    <CardTitle>Area Chart - Daily Amount of Habit</CardTitle>
+        <Card className="py-0">
+            <CardHeader className="flex flex-col items-stretch border-b p-4 sm:flex-row">
+                <div className="flex flex-1 flex-col justify-center gap-1">
+                    <CardTitle>Bar Chart - Daily Exp Gain</CardTitle>
                     <CardDescription>
-                        Showing total amount habit for the last {timeRange}
+                        Showing total exp gain for the last {timeRange}
                     </CardDescription>
                 </div>
                 <Select value={timeRange} onValueChange={setTimeRange}>
@@ -113,32 +111,19 @@ export function ChartHabit({ chartData }: ChartProps) {
                     </SelectContent>
                 </Select>
             </CardHeader>
-            <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">
+            <CardContent className="px-2 sm:p-6">
                 <ChartContainer
                     config={chartConfig}
-                    className="aspect-auto h-[220px] w-full"
+                    className="aspect-auto h-[250px] w-full"
                 >
-                    <AreaChart data={filteredData}>
-                        <defs>
-                            <linearGradient
-                                id="fillHabit"
-                                x1="0"
-                                y1="0"
-                                x2="0"
-                                y2="1"
-                            >
-                                <stop
-                                    offset="5%"
-                                    stopColor="var(--chart-1)"
-                                    stopOpacity={0.8}
-                                />
-                                <stop
-                                    offset="95%"
-                                    stopColor="var(--chart-1)"
-                                    stopOpacity={0.1}
-                                />
-                            </linearGradient>
-                        </defs>
+                    <BarChart
+                        accessibilityLayer
+                        data={filteredData}
+                        margin={{
+                            left: 12,
+                            right: 12,
+                        }}
+                    >
                         <CartesianGrid vertical={false} />
                         <XAxis
                             dataKey="date"
@@ -155,30 +140,24 @@ export function ChartHabit({ chartData }: ChartProps) {
                             }}
                         />
                         <ChartTooltip
-                            cursor={false}
                             content={
                                 <ChartTooltipContent
+                                    className="w-[150px]"
+                                    nameKey="views"
                                     labelFormatter={(value) => {
                                         return new Date(
                                             value,
                                         ).toLocaleDateString('en-US', {
                                             month: 'short',
                                             day: 'numeric',
+                                            year: 'numeric',
                                         });
                                     }}
-                                    indicator="dot"
                                 />
                             }
                         />
-                        <Area
-                            dataKey="habit"
-                            type="natural"
-                            fill="url(#fillHabit)"
-                            stroke="var(--chart-1)"
-                            stackId="a"
-                        />
-                        <ChartLegend content={<ChartLegendContent />} />
-                    </AreaChart>
+                        <Bar dataKey="exp" fill="var(--chart-1)" />
+                    </BarChart>
                 </ChartContainer>
             </CardContent>
         </Card>

@@ -17,10 +17,17 @@ class DashboardController extends Controller
         $habitCount = Habit::where('user_id', auth()->user()->id)->count();
         $habitLogCount = HabitLog::where('user_id', auth()->user()->id)->count();
 
+        $chartData = HabitLog::where('user_id', auth()->user()->id)
+            ->select(\DB::raw('date, sum(exp_gain) as exp'))
+            ->groupBy('date')
+            ->orderBy('date')
+            ->get();
+
         return Inertia::render('user/dashboard', compact(
             'categoryCount',
             'habitCount',
-            'habitLogCount'
+            'habitLogCount',
+            'chartData'
         ));
     }
 }
