@@ -4,7 +4,7 @@ import AppLayout from '@/layouts/app-layout';
 import { dashboard } from '@/routes';
 import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/react';
-import { Bike, ScrollText, SquareLibrary } from 'lucide-react';
+import { Bike, ListPlus, ScrollText, SquareLibrary } from 'lucide-react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -17,6 +17,7 @@ interface DashboardProps {
     categoryCount: number;
     habitCount: number;
     habitLogCount: number;
+    expTotal: string;
     chartData: [];
 }
 
@@ -24,13 +25,14 @@ export default function Dashboard({
     categoryCount,
     habitCount,
     habitLogCount,
+    expTotal,
     chartData,
 }: DashboardProps) {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Dashboard" />
             <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
-                <div className="grid grid-cols-3 gap-4">
+                <div className="grid grid-cols-4 gap-4">
                     <DashboardCard
                         header="Habit Category"
                         icon={SquareLibrary}
@@ -48,6 +50,12 @@ export default function Dashboard({
                         icon={ScrollText}
                         data={habitLogCount}
                         footer="Total Habit Log(s)"
+                    />
+                    <DashboardCard
+                        header="Exp Gain"
+                        icon={ListPlus}
+                        data={Number(expTotal)}
+                        footer="Total Exp Gain(s)"
                     />
                 </div>
                 <div>

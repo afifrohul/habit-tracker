@@ -16,6 +16,9 @@ class DashboardController extends Controller
         $categoryCount = Category::where('user_id', auth()->user()->id)->count();
         $habitCount = Habit::where('user_id', auth()->user()->id)->count();
         $habitLogCount = HabitLog::where('user_id', auth()->user()->id)->count();
+        $expTotal = HabitLog::where('user_id', auth()->user()->id)
+            ->select(\DB::raw('sum(exp_gain) as exp'))
+            ->first()->exp;
 
         $chartData = HabitLog::where('user_id', auth()->user()->id)
             ->select(\DB::raw('date, sum(exp_gain) as exp'))
@@ -27,6 +30,7 @@ class DashboardController extends Controller
             'categoryCount',
             'habitCount',
             'habitLogCount',
+            'expTotal',
             'chartData'
         ));
     }
