@@ -1,4 +1,6 @@
 import { ChartExp } from '@/components/chart-exp';
+import ChartExpGainByCategory from '@/components/chart-exp-gain-by-category';
+import ChartExpGainByHabit from '@/components/chart-exp-gain-by-habit';
 import DashboardCard from '@/components/dashboard-card';
 import AppLayout from '@/layouts/app-layout';
 import { dashboard } from '@/routes';
@@ -19,6 +21,8 @@ interface DashboardProps {
     habitLogCount: number;
     expTotal: string;
     chartData: [];
+    expGainByCategory: [];
+    expGainByHabit: [];
 }
 
 export default function Dashboard({
@@ -27,7 +31,10 @@ export default function Dashboard({
     habitLogCount,
     expTotal,
     chartData,
+    expGainByCategory,
+    expGainByHabit
 }: DashboardProps) {
+
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Dashboard" />
@@ -60,6 +67,10 @@ export default function Dashboard({
                 </div>
                 <div>
                     <ChartExp chartData={chartData}></ChartExp>
+                </div>
+                <div className='grid grid-cols-2 gap-4'>
+                    <ChartExpGainByCategory data={expGainByCategory}></ChartExpGainByCategory>
+                    <ChartExpGainByHabit data={expGainByHabit}></ChartExpGainByHabit>
                 </div>
             </div>
         </AppLayout>
