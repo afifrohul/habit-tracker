@@ -60,7 +60,7 @@ export default function ChartExpGainByHabit({ data }: ChartProps) {
             <CardContent className="flex-1 pb-6">
                 <ChartContainer
                     config={chartConfig}
-                    className="mx-auto max-h-[250px] pb-0 [&_.recharts-pie-label-text]:fill-foreground"
+                    className="mx-auto h-[300px] pb-0 [&_.recharts-pie-label-text]:fill-foreground"
                 >
                     <PieChart>
                         <ChartTooltip
