@@ -8,11 +8,15 @@ use Inertia\Inertia;
 use App\Models\Habit;
 use App\Models\Category;
 use App\Models\HabitLog;
+use App\Models\User;
 
 class DashboardController extends Controller
 {
     public function index()
     {
+
+        $user = User::findOrFail(auth()->user()->id);
+
         $categoryCount = Category::where('user_id', auth()->user()->id)->count();
         $habitCount = Habit::where('user_id', auth()->user()->id)->count();
         $habitLogCount = HabitLog::where('user_id', auth()->user()->id)->count();
@@ -45,9 +49,8 @@ class DashboardController extends Controller
             ->groupBy('habits.name')
             ->get();
 
-        // dd($expGainByHabit);
-
         return Inertia::render('user/dashboard', compact(
+            'user',
             'categoryCount',
             'habitCount',
             'habitLogCount',
