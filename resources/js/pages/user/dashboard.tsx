@@ -77,7 +77,7 @@ export default function Dashboard({
             <Head title="Dashboard" />
             <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
                 <div className="flex w-full gap-4">
-                    <div className="flex-1 space-y-2 rounded-xl border border-primary p-4 bg-card">
+                    <div className="flex-1 space-y-2 rounded-xl border border-primary bg-card p-4">
                         <p className="text-sm font-medium">
                             👋 Welcome to dashboard, {user.name}!
                         </p>
@@ -86,13 +86,13 @@ export default function Dashboard({
                             Let’s keep your habits on track today.
                         </p>
                     </div>
-                    <div className="flex items-center justify-center rounded-xl border border-primary px-8 bg-card">
+                    <div className="flex items-center justify-center rounded-xl border border-primary bg-card px-8">
                         <div className="flex items-center justify-center gap-8">
                             <div className="flex items-center gap-2 text-sm">
                                 <CalendarDays className="h-3.5 w-3.5"></CalendarDays>
                                 {date}
                             </div>
-                            <div className="font-mono text-sm font-semibold flex items-center gap-2">
+                            <div className="flex items-center gap-2 font-mono text-sm font-semibold">
                                 <Clock className="h-3.5 w-3.5"></Clock>
                                 {time}
                             </div>
@@ -100,46 +100,26 @@ export default function Dashboard({
                     </div>
                 </div>
                 <div className="grid grid-cols-4 gap-4">
-                    {/* <Card className="rounded-xl p-4">
-                        <div>
-                            <div className="flex flex-col items-center justify-center gap-2">
-                                <Avatar className="h-12 w-12 overflow-hidden rounded-full">
-                                    <AvatarImage
-                                        src={user.avatar}
-                                        alt={user.name}
-                                    />
-                                    <AvatarFallback className="rounded-lg bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white">
-                                        {getInitials(user.name)}
-                                    </AvatarFallback>
-                                </Avatar>
-                                <div className="flex flex-col text-center">
-                                    <span className="truncate font-medium">
-                                        {user.name}
-                                    </span>
-                                    <span className="truncate text-xs text-muted-foreground">
-                                        {user.email}
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </Card> */}
                     <DashboardCard
                         header="Habit Category"
                         icon={SquareLibrary}
                         data={categoryCount}
                         footer="Total Habit Category(s)"
+                        link="/categories"
                     />
                     <DashboardCard
                         header="Habit"
                         icon={Bike}
                         data={habitCount}
                         footer="Total Habit(s)"
+                        link="/habits"
                     />
                     <DashboardCard
                         header="Habit Log"
                         icon={ScrollText}
                         data={habitLogCount}
                         footer="Total Habit Log(s)"
+                        link="/logs"
                     />
                     <DashboardCard
                         header="Exp Gain"

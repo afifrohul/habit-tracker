@@ -155,7 +155,7 @@ export default function Index({
                                                     <Link
                                                         href={`/tracker/habit-track/${h.id}`}
                                                     >
-                                                        <div className="text-xs bg-muted px-1 py-0.5 rounded underline ">
+                                                        <div className="text-xs bg-accent hover:bg-muted duration-200 px-1 py-0.5 rounded underline ">
                                                             Track
                                                         </div>
                                                     </Link>
