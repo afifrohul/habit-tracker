@@ -114,7 +114,7 @@ export default function Index({
                         return (
                             <Card
                                 key={index}
-                                className="w-full gap-3 rounded border p-4"
+                                className="w-full gap-3 border p-4"
                             >
                                 <CardHeader className="p-0">
                                     <div className="flex items-center gap-2">
@@ -155,7 +155,7 @@ export default function Index({
                                                     <Link
                                                         href={`/tracker/habit-track/${h.id}`}
                                                     >
-                                                        <div className="text-xs bg-accent hover:bg-muted duration-200 px-1 py-0.5 rounded underline ">
+                                                        <div className="rounded bg-accent px-1 py-0.5 text-xs underline duration-200 hover:bg-muted">
                                                             Track
                                                         </div>
                                                     </Link>
@@ -237,30 +237,30 @@ export default function Index({
                         </table>
                     </div>
                 </Card>
-                <div>
-                    <ChartHabit chartData={chartData} />
-                </div>
-                <div className="space-y-4 rounded border p-4 text-xs">
-                    <div className="flex justify-start">
-                        <HabitFilter
-                            habits={habits}
-                            selected={selectedHabits}
-                            onChange={updateFilter}
+                <ChartHabit chartData={chartData} />
+                <Card className='py-3'>
+                    <div className="space-y-4 p-4 text-xs">
+                        <div className="flex justify-start">
+                            <HabitFilter
+                                habits={habits}
+                                selected={selectedHabits}
+                                onChange={updateFilter}
+                            />
+                        </div>
+                        <FullCalendar
+                            plugins={[dayGridPlugin]}
+                            initialView="dayGridMonth"
+                            headerToolbar={{
+                                left: 'prev,next today',
+                                center: 'title',
+                                right: 'dayGridYear,dayGridMonth,dayGridWeek,dayGridDay',
+                            }}
+                            events={events}
+                            eventContent={renderEventContent}
+                            dayMaxEventRows={true}
                         />
                     </div>
-                    <FullCalendar
-                        plugins={[dayGridPlugin]}
-                        initialView="dayGridMonth"
-                        headerToolbar={{
-                            left: 'prev,next today',
-                            center: 'title',
-                            right: 'dayGridYear,dayGridMonth,dayGridWeek,dayGridDay',
-                        }}
-                        events={events}
-                        eventContent={renderEventContent}
-                        dayMaxEventRows={true}
-                    />
-                </div>
+                </Card>
             </div>
         </AppLayout>
     );
