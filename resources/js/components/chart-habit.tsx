@@ -118,7 +118,11 @@ export function ChartHabit({ chartData }: ChartProps) {
                     config={chartConfig}
                     className="aspect-auto h-[220px] w-full"
                 >
-                    <AreaChart data={filteredData}>
+                    <AreaChart
+                        data={filteredData}
+                        margin={{ top: 16 }}
+                        className="mt-2"
+                    >
                         <defs>
                             <linearGradient
                                 id="fillHabit"
