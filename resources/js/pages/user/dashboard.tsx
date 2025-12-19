@@ -10,7 +10,7 @@ import {
     Bike,
     CalendarDays,
     Clock,
-    ListPlus,
+    Gift,
     ScrollText,
     SquareLibrary,
 } from 'lucide-react';
@@ -123,7 +123,7 @@ export default function Dashboard({
                     />
                     <DashboardCard
                         header="Exp Gain"
-                        icon={ListPlus}
+                        icon={Gift}
                         data={Number(expTotal)}
                         footer="Total Exp Gain(s)"
                     />
