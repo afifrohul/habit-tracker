@@ -16,7 +16,7 @@ class HabitLogSeeder extends Seeder
     {
 
         $startDate = Carbon::create(2025, 9, 1);
-        $endDate   = Carbon::create(2025, 12, 10);
+        $endDate   = now();
 
         $dates = [];
         $date = $startDate->copy();

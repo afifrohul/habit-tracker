@@ -56,8 +56,8 @@ export default function Index({ habits }: HabitIndexProps) {
             },
         },
         {
-            accessorKey: 'exp',
-            header: 'Exp',
+            accessorKey: 'difficulty',
+            header: 'Difficulty',
             cell: (info) => info.getValue(),
         },
         {

@@ -62,7 +62,7 @@ class HabitLogController extends Controller
             $habit = Habit::findOrFail($validated['habit_id']);
 
             $validated['user_id'] = auth()->user()->id;
-            $validated['exp_gain'] = $habit->exp;
+            $validated['exp_gain'] = $habit->difficulty === 'easy' ? 5 : ($habit->difficulty === 'medium' ? 10 : 20);
 
             HabitLog::create($validated);
 

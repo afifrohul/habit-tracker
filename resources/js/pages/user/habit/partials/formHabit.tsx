@@ -27,7 +27,7 @@ const formSchema = z.object({
         .min(3, 'Name must be at least 5 characters.')
         .max(12, 'Name must be at most 12 characters.'),
     color: z.string(),
-    exp: z.coerce.number().min(1, 'Exp must be at least 1.'),
+    difficulty: z.string(),
     icon: z.string(),
 });
 
@@ -65,7 +65,7 @@ export function HabitForm({
                   category_id: '',
                   name: '',
                   color: '',
-                  exp: 1,
+                  difficulty: '',
                   icon: '',
               },
     });
@@ -171,23 +171,40 @@ export function HabitForm({
                         )}
                     />
                     <Controller
-                        name="exp"
+                        name="difficulty"
                         control={form.control}
                         render={({ field, fieldState }) => (
                             <Field data-invalid={fieldState.invalid}>
-                                <FieldLabel htmlFor="exp">Exp</FieldLabel>
-                                <Input
-                                    {...field}
-                                    id="exp"
-                                    placeholder="Enter exp"
-                                    autoComplete="off"
-                                    type="number"
-                                    min={1}
-                                    required
-                                />
+                                <FieldLabel htmlFor="difficulty">
+                                    Difficulty
+                                </FieldLabel>
                                 {fieldState.invalid && (
                                     <FieldError errors={[fieldState.error]} />
                                 )}
+                                <Select
+                                    name={field.name}
+                                    value={field.value}
+                                    onValueChange={field.onChange}
+                                >
+                                    <SelectTrigger
+                                        id="difficulty"
+                                        aria-invalid={fieldState.invalid}
+                                        className="w-full"
+                                    >
+                                        <SelectValue placeholder="Select a difficulty" />
+                                    </SelectTrigger>
+                                    <SelectContent position="item-aligned">
+                                        <SelectItem value="easy">
+                                            Easy
+                                        </SelectItem>
+                                        <SelectItem value="medium">
+                                            Medium
+                                        </SelectItem>
+                                        <SelectItem value="hard">
+                                            Hard
+                                        </SelectItem>
+                                    </SelectContent>
+                                </Select>
                             </Field>
                         )}
                     />

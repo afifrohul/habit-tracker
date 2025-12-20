@@ -18,7 +18,7 @@ class HabitSeeder extends Seeder
                 'category_id' => 1, 
                 'name' => 'Workout/Exercise', 
                 'color' => '#3b82f6',
-                'exp' => 10, 
+                'difficulty' => 'medium',
                 'icon' => 'Dumbbell', 
                 'created_at' => now(), 
                 'updated_at' => now()
@@ -28,7 +28,7 @@ class HabitSeeder extends Seeder
                 'category_id' => 1, 
                 'name' => '200+ Hand Grip', 
                 'color' => '#0369a1',
-                'exp' => 10, 
+                'difficulty' => 'medium',
                 'icon' => 'BicepsFlexed', 
                 'created_at' => now(), 
                 'updated_at' => now()
@@ -38,7 +38,7 @@ class HabitSeeder extends Seeder
                 'category_id' => 2, 
                 'name' => 'Quran', 
                 'color' => '#16a34a',
-                'exp' => 10, 
+                'difficulty' => 'medium',
                 'icon' => 'BookOpen', 
                 'created_at' => now(), 
                 'updated_at' => now()
@@ -48,7 +48,7 @@ class HabitSeeder extends Seeder
                 'category_id' => 2, 
                 'name' => 'Pray Dhuha', 
                 'color' => '#0f766e',
-                'exp' => 10, 
+                'difficulty' => 'medium',
                 'icon' => 'Clock8', 
                 'created_at' => now(), 
                 'updated_at' => now()
@@ -58,7 +58,7 @@ class HabitSeeder extends Seeder
                 'category_id' => 3, 
                 'name' => 'Coding', 
                 'color' => '#7c3aed',
-                'exp' => 10, 
+                'difficulty' => 'medium',
                 'icon' => 'CodeXml', 
                 'created_at' => now(), 
                 'updated_at' => now()
@@ -68,7 +68,7 @@ class HabitSeeder extends Seeder
                 'category_id' => 3, 
                 'name' => 'Duolingo', 
                 'color' => '#065f46',
-                'exp' => 10, 
+                'difficulty' => 'medium',
                 'icon' => 'Languages', 
                 'created_at' => now(), 
                 'updated_at' => now()

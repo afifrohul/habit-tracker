@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('color');
             $table->text('desc')->nullable();
-            $table->integer('exp');
+            $table->enum('difficulty', ['easy', 'medium', 'hard']);
             $table->string('icon');
             $table->timestamps();
         });

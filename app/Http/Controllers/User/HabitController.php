@@ -43,7 +43,7 @@ class HabitController extends Controller
             'category_id' => 'required',
             'name' => 'required|min:3|max:12',
             'color' => 'required',
-            'exp' => 'required',
+            'difficulty' => 'required',
             'icon' => 'required'
         ]);
 
