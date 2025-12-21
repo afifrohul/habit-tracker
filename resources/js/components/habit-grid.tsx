@@ -150,7 +150,7 @@ export default function HabitGrid({ gridData, uniqueYears, color }: GridProps) {
                                                         ></div>
                                                     </TooltipTrigger>
                                                     <TooltipContent>
-                                                        <p>
+                                                        <p className="">
                                                             {format(
                                                                 day,
                                                                 'MMMM do',

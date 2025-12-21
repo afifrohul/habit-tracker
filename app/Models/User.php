@@ -51,9 +51,9 @@ class User extends Authenticatable
         ];
     }
 
-    public function profile()
+    public function profileStat()
     {
-        return $this->hasOne(UserProfile::class);
+        return $this->hasOne(UserProfileStat::class);
     }
 
     public function categories()

@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class UserProfile extends Model
+class UserProfileStat extends Model
 {
-    protected $fillable = ['user_id', 'total_exp'];
+    protected $fillable = ['user_id', 'level', 'level_exp', 'total_exp'];
 
     public function user()
     {

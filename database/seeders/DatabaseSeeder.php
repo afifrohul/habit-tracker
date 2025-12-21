@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\UserProfileStat;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -33,6 +34,9 @@ class DatabaseSeeder extends Seeder
                 'role' => 'user',
                 'email_verified_at' => now(),
             ]
+        );
+        UserProfileStat::create(
+            ['user_id' => 2],
         );
 
         $this->call([
