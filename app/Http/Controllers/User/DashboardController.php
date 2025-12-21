@@ -9,20 +9,20 @@ use App\Models\Habit;
 use App\Models\Category;
 use App\Models\HabitLog;
 use App\Models\User;
+use App\Models\UserProfileStat;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-
-        $user = User::findOrFail(auth()->user()->id);
+        $user = auth()->user()->load('profileStat');
 
         $categoryCount = Category::where('user_id', auth()->user()->id)->count();
         $habitCount = Habit::where('user_id', auth()->user()->id)->count();
         $habitLogCount = HabitLog::where('user_id', auth()->user()->id)->count();
-        $expTotal = HabitLog::where('user_id', auth()->user()->id)
-            ->select(\DB::raw('sum(exp_gain) as exp'))
-            ->first()->exp;
+        $expTotal = UserProfileStat::where('user_id', auth()->user()->id)
+            ->select('total_exp')
+            ->first()->total_exp;
 
         $chartData = HabitLog::where('user_id', auth()->user()->id)
             ->select(\DB::raw('date, sum(exp_gain) as exp'))

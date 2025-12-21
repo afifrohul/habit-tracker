@@ -2,15 +2,22 @@ import { ChartExp } from '@/components/chart-exp';
 import ChartExpGainByCategory from '@/components/chart-exp-gain-by-category';
 import ChartExpGainByHabit from '@/components/chart-exp-gain-by-habit';
 import DashboardCard from '@/components/dashboard-card';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent } from '@/components/ui/card';
+import { Progress } from '@/components/ui/progress';
+import { useInitials } from '@/hooks/use-initials';
 import AppLayout from '@/layouts/app-layout';
 import { dashboard } from '@/routes';
 import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/react';
 import {
+    Award,
+    BadgeCheckIcon,
     Bike,
     CalendarDays,
+    ChartNoAxesCombined,
     Clock,
-    Gift,
     ScrollText,
     SquareLibrary,
 } from 'lucide-react';
@@ -29,6 +36,13 @@ interface DashboardProps {
         email: string;
         avatar: string;
         created_at: string;
+        profile_stat: {
+            level: number;
+            level_exp: number;
+            remaining_exp: number;
+            total_exp: number;
+            exp_to_next_level: number;
+        };
     };
     categoryCount: number;
     habitCount: number;
@@ -44,11 +58,12 @@ export default function Dashboard({
     categoryCount,
     habitCount,
     habitLogCount,
-    expTotal,
     chartData,
     expGainByCategory,
     expGainByHabit,
 }: DashboardProps) {
+    console.log(user);
+
     const [now, setNow] = useState(new Date());
 
     useEffect(() => {
@@ -71,6 +86,13 @@ export default function Dashboard({
         minute: '2-digit',
         second: '2-digit',
     });
+
+    const getInitials = useInitials();
+
+    const [progress, setProgress] = useState(
+        (user.profile_stat.level_exp / user.profile_stat.exp_to_next_level) *
+            100,
+    );
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -99,7 +121,93 @@ export default function Dashboard({
                         </div>
                     </div>
                 </div>
-                <div className="grid grid-cols-4 gap-4">
+                <div className="grid grid-cols-2 gap-4">
+                    <Card className="flex justify-center border border-primary">
+                        <CardContent>
+                            <div className="flex items-center justify-between">
+                                <div className="flex gap-4">
+                                    <div>
+                                        <Avatar className="h-12 w-12 overflow-hidden rounded-full">
+                                            <AvatarImage
+                                                src={user.avatar}
+                                                alt={user.name}
+                                            />
+                                            <AvatarFallback className="rounded-lg bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white">
+                                                {getInitials(user.name)}
+                                            </AvatarFallback>
+                                        </Avatar>
+                                    </div>
+                                    <div className="flex flex-col justify-between">
+                                        <div className="flex items-center gap-2">
+                                            <p className="font-semibold">
+                                                {user.name}
+                                            </p>
+                                            <Badge
+                                                variant="default"
+                                                className="bg-blue-500 text-white dark:bg-blue-600"
+                                            >
+                                                <BadgeCheckIcon />
+                                                <p className="text-xs">
+                                                    Verified
+                                                </p>
+                                            </Badge>
+                                        </div>
+                                        <p className="text-sm font-light">
+                                            {user.email}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div className="flex flex-col gap-4">
+                                    <div className="flex items-center gap-2">
+                                        <ChartNoAxesCombined className="h-3.5 w-3.5 text-primary"></ChartNoAxesCombined>
+                                        <p className="text-xs">
+                                            LEVEL {user.profile_stat?.level}
+                                        </p>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <Award className="h-3.5 w-3.5 text-primary"></Award>
+                                        <p className="text-xs">
+                                            {user.profile_stat?.total_exp} EXP
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </CardContent>
+                    </Card>
+                    <Card className="flex justify-center border border-primary">
+                        <CardContent>
+                            <div className="flex flex-col gap-3">
+                                <div className="flex flex-col gap-1">
+                                    <p className="text-xs">
+                                        NEXT LEVEL:{' '}
+                                        {user.profile_stat?.level + 1}
+                                    </p>
+                                    <p className="text-xs">
+                                        {user.profile_stat?.remaining_exp} MORE
+                                        EXP TO GO
+                                    </p>
+                                </div>
+                                <div className="flex items-center gap-4">
+                                    <p className="text-xs font-semibold">
+                                        {user.profile_stat?.level_exp} / {user.profile_stat?.exp_to_next_level}
+                                    </p>
+                                    <Progress
+                                        value={progress}
+                                        className="w-full flex-1"
+                                    />
+                                    <div>
+                                        <div className="full flex h-5 w-5 items-center justify-center rounded-full bg-primary/20">
+                                            <p className="text-xs font-semibold">
+                                                {user.profile_stat?.level + 1}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </CardContent>
+                    </Card>
+                </div>
+                <div className="grid grid-cols-3 gap-4">
                     <DashboardCard
                         header="Habit Category"
                         icon={SquareLibrary}
@@ -120,12 +228,6 @@ export default function Dashboard({
                         data={habitLogCount}
                         footer="Total Habit Log(s)"
                         link="/logs"
-                    />
-                    <DashboardCard
-                        header="Exp Gain"
-                        icon={Gift}
-                        data={Number(expTotal)}
-                        footer="Total Exp Gain(s)"
                     />
                 </div>
                 <div>

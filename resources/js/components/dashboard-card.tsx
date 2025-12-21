@@ -28,7 +28,7 @@ export default function DashboardCard({
                         </p>
                         <div>
                             {Icon && (
-                                <Icon className="text-sm text-neutral-700 dark:text-neutral-500" />
+                                <Icon className="text-sm text-primary" />
                             )}
                         </div>
                     </div>
