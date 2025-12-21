@@ -12,4 +12,10 @@ class HabitLogObserver
         app(LevelService::class)
             ->addExp($habitLog->user, $habitLog->exp_gain);
     }
+
+    public function deleted(HabitLog $habitLog): void
+    {
+        app(LevelService::class)
+            ->removeExp($habitLog->user, $habitLog->exp_gain);
+    }
 }

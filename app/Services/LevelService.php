@@ -11,6 +11,13 @@ class LevelService
     protected int $baseExp = 50;
     protected float $multiplier = 1.15;
 
+    public function expToNextLevel(int $level): int
+    {
+        return (int) floor(
+            $this->baseExp * pow($this->multiplier, $level - 1)
+        );
+    }
+
     public function addExp(User $user, int $expGain): void
     {
         DB::transaction(function () use ($user, $expGain) {
@@ -43,10 +50,17 @@ class LevelService
         });
     }
 
-    public function expToNextLevel(int $level): int
+    public function removeExp(User $user, int $expLoss): void
     {
-        return (int) floor(
-            $this->baseExp * pow($this->multiplier, $level - 1)
-        );
+        DB::transaction(function () use ($user, $expLoss) {
+            $stats = $user->profileStat;
+
+            if (!$stats) return;
+
+            $stats->total_exp = max(0, $stats->total_exp - $expLoss);
+            $stats->level_exp = max(0, $stats->level_exp - $expLoss);
+
+            $stats->save();
+        });
     }
 }

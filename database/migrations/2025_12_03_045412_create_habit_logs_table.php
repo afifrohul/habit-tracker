@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('exp_gain');
             $table->date('date');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
