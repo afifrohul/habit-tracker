@@ -66,10 +66,10 @@ class HabitLogController extends Controller
 
             HabitLog::create($validated);
 
-            return redirect()->back()->with('success', 'Category created successfully.');
+            return redirect()->back()->with('success', 'Log created successfully.');
         } catch (\Exception $e) {
-            Log::error('Error storing category: ' . $e->getMessage());
-            return redirect()->back()->with('error', 'Failed to create category.');
+            Log::error('Error storing log: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Failed to create log.');
         }
     }
 
